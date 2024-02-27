@@ -1,0 +1,49 @@
+.process {
+  &_signIn {
+    background-color: gray;
+    width: 40%;
+    height: 50vh;
+    padding: 2rem;
+    background: rgb(34, 153, 195);
+    background: linear-gradient(
+      180deg,
+      rgba(34, 153, 195, 1) 35%,
+      rgba(253, 253, 253, 1) 100%
+    );
+    display: flex;
+    flex-direction: column;
+    border-radius: 30px;
+
+    &_title {
+      font-size: 25px;
+      text-align: center;
+      margin: 3rem 0;
+      color: white;
+    }
+    &_group {
+      row-gap: 0.5em;
+      display: flex;
+      flex-direction: column;
+      &_input {
+        border-radius: 10px;
+        
+        height: 40px;
+      }
+    }
+    &_button {
+      margin-top: 2em;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 10px;
+      width: 30%;
+      align-self: center;
+    }
+    &_text{
+      text-align: center;
+      margin-top: 10px;
+      row-gap: 1em;
+      color: black;
+      cursor: pointer;
+    }
+  }
+}

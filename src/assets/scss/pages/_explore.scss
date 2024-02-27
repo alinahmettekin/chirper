@@ -1,0 +1,88 @@
+.explore {
+  width: 70%;
+  margin: 10rem auto 0 auto;
+  display: flex;
+  flex-direction: column;
+  row-gap: 3rem;
+
+  &_group {
+    border-bottom: 1px solid red;
+  }
+  &_box {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5rem;
+  }
+  &_post {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.2rem;
+    height: fit-content;
+
+    &_group {
+      margin-top: 1rem;
+      display: flex;
+      &_input {
+        height: 40px;
+        width: 400px;
+        margin-left: 0.6rem;
+        padding-left: 1rem;
+        border-radius: 10px;
+        margin-top: 7px;
+      }
+      &_button {
+        margin-left: 10px;
+        border-radius: 10px;
+        padding: 0 1rem;
+      }
+    }
+    &_comment {
+      border-radius: 10px;
+      border: 1px solid black;
+      margin: 10px;
+      padding: 10px;
+    }
+
+    &_name {
+      font-size: 24px;
+      text-decoration: none;
+      color: red;
+    }
+    &_img {
+      height: 100px;
+      width: 100px;
+      border-radius: 50%;
+    }
+    &_content {
+      font-size: 20px;
+    }
+    &_comments {
+      font-size: 20px;
+    }
+    &_date {
+      font-size: 15px;
+    }
+  }
+  &_section {
+    &_box {
+      display: flex;
+      flex-direction: column;
+      &_input {
+        height: 40px;
+        border: none;
+        margin-bottom: 1rem;
+        outline: 0;
+      }
+      &_button {
+        width: 30%;
+        padding: 0.3rem 0.5rem;
+        align-self: flex-end;
+      }
+    }
+  }
+}

@@ -1,0 +1,31 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: aquamarine;
+  height: 40px;
+  &_title {
+    cursor: pointer;
+  }
+  &_list {
+    display: flex;
+    column-gap: 2em;
+    list-style: none;
+    &_item {
+      cursor: pointer;
+    }
+    &_box {
+      display: flex;
+      column-gap: 2em;
+      &_item {
+        cursor: pointer;
+      }
+    }
+  }
+}
