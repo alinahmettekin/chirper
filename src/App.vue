@@ -1,9 +1,8 @@
-<template>  
+<template>
   <RouterView />
 </template>
 
 <script>
-
 export default {
   methods: {},
   mounted() {
@@ -11,6 +10,8 @@ export default {
     this.$store.dispatch("getUsers");
     this.$store.dispatch("getComments");
     this.$store.dispatch("getCurrentUser");
+    this.$store.dispatch("getBlockedBlogs");
+    this.$store.dispatch("getBlockedComments");
   },
 };
 </script>
@@ -22,5 +23,4 @@ export default {
   text-align: left;
   color: #2c3e50;
 }
-
 </style>

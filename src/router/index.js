@@ -8,6 +8,12 @@ import dashboard from "../pages/adminpanel/Dashboard.vue";
 import commentspage from "../pages/adminpanel/CommentsPage.vue";
 import postspage from "../pages/adminpanel/PostsPage.vue";
 import userspage from "../pages/adminpanel/UsersPage.vue";
+
+import admindashboard from "../pages/adminpanel/AdminDashboard.vue";
+import adminusers from "../pages/adminpanel/AdminUsers.vue";
+import admincomments from "../pages/adminpanel/AdminComments.vue";
+import adminblogs from "../pages/adminpanel/AdminBlogs.vue";
+
 import profilepage from "../pages/profile.vue";
 
 import { createRouter, createWebHistory } from "vue-router";
@@ -80,6 +86,28 @@ const routes = [
     name: "profilepage",
     component: profilepage,
     props: true,
+  },
+
+  {
+    path: "/admin/dashboard",
+    name: "admindashboard",
+    component: admindashboard,
+  },
+
+  {
+    path: "/admin/comments",
+    name: "admincomments",
+    component: admincomments,
+  },
+  {
+    path: "/admin/blogs",
+    name: "adminblogs",
+    component: adminblogs,
+  },
+  {
+    path: "/admin/users",
+    name: "adminusers",
+    component: adminusers,
   },
 ];
 

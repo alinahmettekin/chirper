@@ -12,6 +12,8 @@ const store = createStore({
       posts: {},
       currentPost: {},
       currentUser: "",
+      blockedBlogs: {},
+      blockedComments: {},
     },
   },
   mutations: {
@@ -39,6 +41,7 @@ const store = createStore({
     setPosts(state, posts) {
       state.data.posts = posts;
     },
+
     setComments(state, comments) {
       state.data.comments = comments;
     },
@@ -48,6 +51,12 @@ const store = createStore({
     setCurrentUser(state, currentUser) {
       console.log("currentUser", currentUser);
       state.data.currentUser = currentUser;
+    },
+    setBlockedBlogs(state, blockedBlogs) {
+      state.data.blockedBlogs = blockedBlogs;
+    },
+    setBlockedComments(state, blockedComments) {
+      state.data.blockedComments = blockedComments;
     },
   },
   actions: {
@@ -83,6 +92,7 @@ const store = createStore({
         console.error("API hatası:", error);
       }
     },
+
     async getcurrentPost(currentPost, postID) {
       try {
         const response = await axios.get(
@@ -95,6 +105,7 @@ const store = createStore({
         console.error("API hatası:", error);
       }
     },
+
     async getCurrentUser(currentUser) {
       try {
         const response = await axios.get("http://localhost:3000/profile");
@@ -108,6 +119,32 @@ const store = createStore({
     },
     async sendComment(newComment) {
       console.log(newComment);
+    },
+
+    async getBlockedBlogs(blockedBlogs) {
+      try {
+        const response = await axios.get(
+          "http://localhost:3000/api/posts/blocked/filtered"
+        );
+        blockedBlogs = response.data;
+        this.commit("setBlockedBlogs", blockedBlogs);
+        console.log("blockedBlogs", response.data);
+      } catch (error) {
+        console.error("API hatası:", error);
+      }
+    },
+
+    async getBlockedComments(blockedCommments) {
+      try {
+        const response = await axios.get(
+          "http://localhost:3000/api/comments/blocked/filtered"
+        );
+        blockedCommments = response.data;
+        this.commit("setBlockedComments", blockedCommments);
+        console.log("blockedComments", response.data);
+      } catch (error) {
+        console.error("API hatası:", error);
+      }
     },
   },
 });

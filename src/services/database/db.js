@@ -77,23 +77,21 @@ app.patch("/update-comment-display/:commentId", async (req, res) => {
 });
 
 app.post("/sendpost", (req, res) => {
-  const { post_sender, post_content, post_datetime, post_title } = req.body;
+  const { post_sender, post_content, post_datetime } = req.body;
 
   // Kullanıcı bilgilerini PostgreSQL veritabanına kaydetme
   const query = {
-    text: "INSERT INTO posts (post_sender, post_content,post_datetime,post_title) VALUES($1, $2, $3, $4)",
-    values: [post_sender, post_content, post_datetime, post_title],
+    text: "INSERT INTO posts (post_sender, post_content,post_datetime) VALUES($1, $2, $3)",
+    values: [post_sender, post_content, post_datetime],
   };
 
   db.query(query)
     .then(() => {
       res.status(201).send("post başarıyla kaydedildi.");
-      console.log("oldu gitti");
     })
     .catch((error) => {
       console.error("post kaydedilirken hata oluştu:", error);
       res.status(500).send("post kaydedilirken bir hata oluştu.");
-      console.log("olmadı gitti");
     });
 });
 
@@ -261,9 +259,10 @@ async function getData() {
   }
   try {
     const data = await db.any(`
-    SELECT pc.*, u.user_name
+    SELECT pc.*, u.user_name, p.post_title
     FROM postcomments pc
     JOIN users u ON pc.comment_sender = u.user_id
+    JOIN posts p ON pc.comment_postid = p.post_id
     `);
     comments = data;
   } catch (error) {
@@ -460,6 +459,35 @@ app.get("/api/userscountinfo", async (req, res) => {
   }
 });
 
+app.get("/api/posts/blocked/filtered", async (req, res) => {
+  try {
+    const data = await db.any(
+      "SELECT posts.*, users.user_name AS post_sender_name FROM posts LEFT JOIN users ON posts.post_sender = users.user_id WHERE posts.post_display = 'false';"
+    );
+
+    res.json(data);
+  } catch (error) {
+    console.error("Error fetching post:", error);
+    res
+      .status(500)
+      .json({ success: false, message: "Internal Server Error ha" });
+  }
+});
+
+app.get("/api/comments/blocked/filtered", async (req, res) => {
+  try {
+    const data = await db.any(
+      "SELECT postcomments.*, users.user_name AS comment_sender_name FROM postcomments LEFT JOIN users ON postcomments.comment_sender = users.user_id WHERE postcomments.comment_display = 'false';"
+    );
+
+    res.json(data);
+  } catch (error) {
+    console.error("Error fetching post:", error);
+    res
+      .status(500)
+      .json({ success: false, message: "Internal Server Error ha" });
+  }
+});
 server.listen(port, () => {
   console.log(`API çalışıyor: http://localhost:${port}`);
 });

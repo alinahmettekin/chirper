@@ -104,16 +104,19 @@ import sidebar from "../components/Sidebar.vue";
 import FooterComponent from "../components/footer.vue";
 import axios from "axios";
 import { mapState } from "vuex";
+
 export default {
   data() {
     return {
       photo: "https://via.placeholder.com/60",
     };
   },
+
   components: {
     Sidebar: sidebar,
     FooterComponent,
   },
+
   computed: {
     ...mapState({
       posts: (state) => state.data.posts,

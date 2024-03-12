@@ -1,19 +1,17 @@
 <template>
   <div class="sidebar">
     <h2 @click="homePage">Chirper</h2>
-    <h5>Blog Blog Yaşamak</h5>
+    <h5>Admin Panel</h5>
     <nav>
       <ul>
-        <li @click="homePage"><a href="#">Anasayfa</a></li>
-        <li @click="kesfet"><a href="#">Keşfet</a></li>
-        <li v-if="this.currentUser.isAdmin" @click="dashboard">
-          <a href="#">Dashboard</a>
+        <li @click="getDashboard"><a href="#">Dashboard</a></li>
+        <li @click="getUsers"><a href="#">Kullanıcılar</a></li>
+        <li @click="getBlogs">
+          <a href="#">Bloglar</a>
         </li>
+        <li @click="getComments"><a href="#">Yorumlar</a></li>
       </ul>
-      <ul v-if="!isActive">
-        <li @click="login"><a href="#">Giriş Yap</a></li>
-        <li @click="signIn"><a href="#">Kayıt Ol</a></li>
-      </ul>
+
       <ul>
         <li><h3 v-if="isActive" @click="logout">ÇIKIŞ YAP</h3></li>
       </ul>
@@ -38,11 +36,23 @@ export default {
       console.log(this.currentUser.isAdmin);
       console.log(this.currentUser);
     },
+    getDashboard() {
+      router.push("/admin/dashboard");
+    },
+    getUsers() {
+      router.push("/admin/users");
+    },
+    getBlogs() {
+      router.push("/admin/blogs");
+    },
+    getComments() {
+      router.push("/admin/comments");
+    },
     kesfet() {
       router.push("/explore");
     },
     dashboard() {
-      router.push("/admin/dashboard");
+      router.push("/dashboard");
     },
     login() {
       router.push("/login");

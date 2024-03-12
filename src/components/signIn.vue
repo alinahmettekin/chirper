@@ -1,60 +1,68 @@
 <template>
   <div>
-    <div class="container-login" v-if="this.$route.path == `/signIn`">
-      <div class="heading-login">Kayıt Ol</div>
-      <div class="form-login">
+    <nav class="navbar">
+      <ul>
+        <li><a href="/">Anasayfa</a></li>
+        <li><a href="/login">Giriş Yap</a></li>
+        <li><a href="/signIn">Kayıt Ol</a></li>
+        <li><a href="/explore">Keşfet</a></li>
+        <li><a href="#">Hakkımızda</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="form-container" v-if="this.$route.path == `/signIn`">
+    <div class="site-info">
+      <p class="site-name">Chirper</p>
+      <p class="site-slogan">blog blog yaşamak</p>
+    </div>
+    <div class="form-control">
+      <p class="title">Kayıt Ol</p>
+      <div class="input-field">
         <input
-          required=""
-          class="input-login"
+          class="input"
           type="email"
           name="email"
           id="email"
-          placeholder="E-mail"
+          placeholder="E-Mail"
           v-model="email"
         />
+        <label class="label" for="input">E-posta adresinizi girin</label>
+      </div>
+      <div class="input-field">
         <input
-          required=""
-          class="input-login"
+          class="input"
           type="username"
           name="username"
           id="username"
-          placeholder="Username"
+          placeholder="Kullanıcı Adı"
           v-model="username"
         />
+        <label class="label" for="input">Kullanıcı adı girin</label>
+      </div>
+      <div class="input-field">
         <input
-          required=""
-          class="input-login"
+          class="input"
           type="password"
           name="password"
           id="password"
           placeholder="Password"
           v-model="password"
         />
-        <input
-          @click="signUpToDatabase"
-          class="login-button"
-          type="submit"
-          value="Kayıt Ol"
-        />
+        <label class="label" for="input">Şifrenizi girin</label>
       </div>
-      <div class="social-account-container">
-        <span class="title" @click="pushLogin"
-          >Hesabınız varsa giriş yapmak için tıklayın</span
-        >
-      </div>
-      <span class="agreement"
-        ><a href="#">Learn user licence agreement</a></span
-      >
+      <a class="forgot-password">Şifrenizi mi unuttunuz?</a>
+      <a @click="pushLogin" class="signup">Hesabınız var mı? Giriş Yapın</a>
+      <button @click="signUpToDatabase" class="submit-btn">Kayıt Ol</button>
     </div>
   </div>
 </template>
 <script>
-import axios from "axios";
 import router from "../router";
+import axios from "axios";
 
 export default {
   data() {
-    return {};
+    return { currentUser: null };
   },
   methods: {
     async signUpToDatabase() {
@@ -85,153 +93,144 @@ export default {
   },
 };
 </script>
-<style>
-.container-login {
-  max-width: 350px;
-  background: #f8f9fd;
-  background: linear-gradient(
-    0deg,
-    rgb(255, 255, 255) 0%,
-    rgb(244, 247, 251) 100%
-  );
-  border-radius: 40px;
-  padding: 25px 35px;
-  border: 5px solid rgb(255, 255, 255);
-  box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 30px 30px -20px;
-  margin: 20px;
+
+<style scoped>
+.navbar {
+  background-color: #f8f9fa;
+  color: #fff;
+  padding: 10px 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
 }
 
-.heading-login {
-  text-align: center;
-  font-weight: 900;
-  font-size: 30px;
-  color: rgb(16, 137, 211);
+.navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: flex-end;
 }
 
-.form-login {
-  margin-top: 20px;
+.navbar li {
+  margin-left: 20px;
+  font-weight: bolder;
 }
 
-.form-login .input-login {
-  width: 100%;
-  background: white;
-  border: none;
-  padding: 15px 20px;
-  border-radius: 20px;
-  margin-top: 15px;
-  box-shadow: #cff0ff 0px 10px 10px -5px;
-  border-inline: 2px solid transparent;
-}
-
-.form-login .input-login::-moz-placeholder {
-  color: rgb(170, 170, 170);
-}
-
-.form-login .input-login::placeholder {
-  color: rgb(170, 170, 170);
-}
-
-.form-login .input-login:focus {
-  outline: none;
-  border-inline: 2px solid #12b1d1;
-}
-
-.form-login .forgot-password {
-  display: block;
-  margin-top: 10px;
-  margin-left: 10px;
-}
-
-.form-login .forgot-password a {
-  font-size: 11px;
-  color: #0099ff;
+.navbar a {
+  color: black;
   text-decoration: none;
 }
 
-.form-login .login-button {
+.navbar a:hover {
+  color: black;
+  text-decoration: none;
+  font-size: 1.1rem;
   display: block;
-  width: 100%;
-  font-weight: bold;
-  background: linear-gradient(
-    45deg,
-    rgb(16, 137, 211) 0%,
-    rgb(18, 177, 209) 100%
-  );
-  color: white;
-  padding-block: 15px;
-  margin: 20px auto;
-  border-radius: 20px;
-  box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 20px 10px -15px;
-  border: none;
-  transition: all 0.2s ease-in-out;
-  cursor: pointer;
+  background-color: #f8f9fa;
 }
 
-.form-login .login-button:hover {
-  transform: scale(1.03);
-  box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 23px 10px -20px;
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 80px; /* Navbar'ın yüksekliği kadar boşluk bırak */
 }
 
-.form-login .login-button:active {
-  transform: scale(0.95);
-  box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 15px 10px -10px;
-}
-
-.social-account-container {
-  margin-top: 25px;
-  cursor: pointer;
-}
-
-.social-account-container .title {
-  display: block;
+.site-info {
   text-align: center;
-  font-size: 10px;
-  color: rgb(170, 170, 170);
 }
 
-.social-account-container .social-accounts {
-  width: 100%;
+.site-name {
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.site-slogan {
+  font-size: 18px;
+  font-style: italic;
+  color: #666;
+}
+
+.form-control {
+  margin-top: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+  width: 400px;
   display: flex;
   justify-content: center;
-  gap: 15px;
-  margin-top: 5px;
+  flex-direction: column;
+  gap: 10px;
+  padding: 25px;
+  border-radius: 8px;
+}
+.title {
+  font-size: 28px;
+  font-weight: 800;
+}
+.input-field {
+  position: relative;
+  width: 100%;
 }
 
-.social-account-container .social-accounts .social-button {
-  background: linear-gradient(45deg, rgb(0, 0, 0) 0%, rgb(112, 112, 112) 100%);
-  border: 5px solid white;
-  padding: 5px;
-  border-radius: 50%;
-  width: 40px;
-  aspect-ratio: 1;
-  display: grid;
-  place-content: center;
-  box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 12px 10px -8px;
-  transition: all 0.2s ease-in-out;
+.input {
+  margin-top: 15px;
+  width: 100%;
+  outline: none;
+  border-radius: 8px;
+  height: 45px;
+  border: 1.5px solid #ecedec;
+  background: transparent;
+  padding-left: 10px;
+}
+.input:focus {
+  border: 1.5px solid #2d79f3;
+}
+.input-field .label {
+  position: absolute;
+  top: 25px;
+  left: 15px;
+  color: #ccc;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+.input-field .input:focus ~ .label,
+.input-field .input:valid ~ .label {
+  top: 5px;
+  left: 5px;
+  font-size: 12px;
+  color: #2d79f3;
+  background-color: #ffffff;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.submit-btn {
+  margin-top: 30px;
+  height: 55px;
+  background: #f2f2f2;
+  border-radius: 11px;
+  border: 0;
+  outline: none;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 700;
+  background: linear-gradient(180deg, #363636 0%, #1b1b1b 50%, #000000 100%);
+  box-shadow: 0px 0px 0px 0px #ffffff, 0px 0px 0px 0px #000000;
+  transition: all 0.3s cubic-bezier(0.15, 0.83, 0.66, 1);
+  cursor: pointer;
 }
 
-.social-account-container .social-accounts .social-button .svg {
-  fill: white;
-  margin: auto;
+.submit-btn:hover {
+  box-shadow: 0px 0px 0px 2px #ffffff, 0px 0px 0px 4px #0000003a;
 }
-
-.social-account-container .social-accounts .social-button:hover {
-  transform: scale(1.2);
-}
-
-.social-account-container .social-accounts .social-button:active {
-  transform: scale(0.9);
-}
-
-.agreement {
-  display: block;
+.forgot-password,
+.signup {
   text-align: center;
   margin-top: 15px;
-}
-
-.agreement a {
-  text-decoration: none;
-  color: #0099ff;
-  font-size: 9px;
+  color: #007bff;
+  cursor: pointer;
 }
 </style>
