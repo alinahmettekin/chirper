@@ -81,6 +81,7 @@ import sidebar from "../components/Sidebar.vue";
 //import header from "../components/Header.vue";
 import axios from "axios";
 import { mapState } from "vuex";
+import { API_KEY } from "../services/api_key.js";
 
 const API_URL =
   "https://api.openai.com/v1/engines/gpt-3.5-turbo-instruct/completions";
@@ -127,8 +128,7 @@ export default {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization:
-              "Bearer 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",
+            Authorization: API_KEY,
           },
         }
       );
