@@ -13,6 +13,7 @@ import admindashboard from "../pages/adminpanel/AdminDashboard.vue";
 import adminusers from "../pages/adminpanel/AdminUsers.vue";
 import admincomments from "../pages/adminpanel/AdminComments.vue";
 import adminblogs from "../pages/adminpanel/AdminBlogs.vue";
+import testing from "../pages/testing.vue";
 
 import profilepage from "../pages/profile.vue";
 
@@ -108,6 +109,11 @@ const routes = [
     path: "/admin/users",
     name: "adminusers",
     component: adminusers,
+  },
+  {
+    path: "/testing",
+    name: "testing",
+    component: testing,
   },
 ];
 

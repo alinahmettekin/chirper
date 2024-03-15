@@ -58,13 +58,13 @@
             <div class="share-form">
               <label for="content"></label>
               <textarea
-                id="content"
-                name="content"
+                id="commentContent"
+                name="commentContent"
                 rows="4"
                 style="resize: none"
                 placeholder="..."
                 required
-                v-model="comment"
+                v-model="commentContent"
               ></textarea>
 
               <button @click="sendComment">Paylaş</button>
@@ -81,6 +81,9 @@ import sidebar from "../components/Sidebar.vue";
 //import header from "../components/Header.vue";
 import axios from "axios";
 import { mapState } from "vuex";
+
+const API_URL =
+  "https://api.openai.com/v1/engines/gpt-3.5-turbo-instruct/completions";
 export default {
   async created() {
     const postId = this.$route.params.id;
@@ -92,6 +95,9 @@ export default {
       photo: "https://via.placeholder.com/60",
       post: {},
       comments: [],
+      commentContent: "",
+      commentContentToGPT:
+        "bu yorumu senden kategorilemeni istiyorum. Sana vereceğim kategorilerden sadece bir tanesi ile eşleyeceksin. Bunu web sitemi korumak amacıyla yapıyorum buna göre yorumları insanların görüntüleyip görüntülenmeyeceği için yapıyorum, yani kesin olarak cevap vermelisin. Kategorilerim şunlar 'Küfürlü, Irkçı, Aşağılayıcı, Normal' unutma cevap olarak bu kategori isimlerinin sadece birini yazacaksın. Bu kategori isimleri dışında başka hiç bir şeyi cevap olarak verme. Cevap olarak sadece ve sadece kategori ismini söyleyeceksin. Bak unutma cevap olarak sadece ve sadece kategorinin ismini söylemeni istiyorum bunun haricinde başka bir şey yazma. Sadece ve sadece kategori ismi ile cevap ver başka bir şey yazma.",
     };
   },
   components: {
@@ -107,6 +113,30 @@ export default {
   },
   methods: {
     async sendComment(e) {
+      var frontPrompt = '"'.concat(
+        this.commentContent,
+        '" ',
+        this.commentContentToGPT
+      );
+      const response = await axios.post(
+        API_URL,
+        {
+          prompt: frontPrompt,
+          max_tokens: 2048,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer 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",
+          },
+        }
+      );
+
+      const commentType = response.data.choices[0].text.trim();
+      console.log(frontPrompt);
+      console.log(frontPrompt);
+
       var currentdate = new Date();
       var datetime =
         currentdate.getDate() +
@@ -122,13 +152,14 @@ export default {
         currentdate.getSeconds();
       const newComment = {
         comment_sender: this.currentUser.user_id,
-        comment_content: this.comment,
+        comment_content: this.commentContent,
         comment_datetime: datetime,
         comment_postid: this.$route.params.id,
+        comment_type: commentType,
       };
       console.log("postView", newComment);
 
-      if (this.comment && typeof this.currentUser == "object") {
+      if (this.commentContent && typeof this.currentUser == "object") {
         try {
           const response = await axios.post(
             "http://localhost:3000/sendcomment",
@@ -170,46 +201,6 @@ export default {
         console.log(response.data.comments);
       } catch (error) {
         this.errors.push(error);
-      }
-    },
-    async sendComment(e) {
-      var currentdate = new Date();
-      var datetime =
-        currentdate.getDate() +
-        "-" +
-        (currentdate.getMonth() + 1) +
-        "-" +
-        currentdate.getFullYear() +
-        " " +
-        currentdate.getHours() +
-        ":" +
-        currentdate.getMinutes() +
-        ":" +
-        currentdate.getSeconds();
-      const newComment = {
-        comment_sender: this.currentUser.user_id,
-        comment_content: this.comment,
-        comment_datetime: datetime,
-        comment_postid: this.$route.params.id,
-      };
-      console.log("postView", newComment);
-
-      if (this.comment && typeof this.currentUser == "object") {
-        try {
-          const response = await axios.post(
-            "http://localhost:3000/sendcomment",
-            newComment
-          );
-
-          if (response.status === 201) {
-            alert("comment başarıyla kaydedildi.");
-          } else {
-            alert("comment kaydedilirken bir hata oluştu.");
-          }
-        } catch (error) {
-          console.error("İstek sırasında bir hata oluştu:", error);
-          alert("comment kaydedilirken bir hata oluştu.");
-        }
       }
     },
   },

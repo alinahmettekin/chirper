@@ -109,6 +109,7 @@ export default {
   data() {
     return {
       photo: "https://via.placeholder.com/60",
+      commentType: "",
     };
   },
 
