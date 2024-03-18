@@ -22,11 +22,13 @@
           ></p>
 
           <div>
-            <h3 v-if="this.comments.length === 0">Henüz Bir Yorum Yok.</h3>
+            <h3 v-if="this.visibleComments.length === 0">
+              Henüz Bir Yorum Yok.
+            </h3>
             <h3 v-else>Yorumlar</h3>
             <ul class="comment-list">
               <li
-                v-for="comment in comments"
+                v-for="comment in visibleComments"
                 :key="comment.comment_id"
                 class="comment-item"
               >
@@ -98,7 +100,7 @@ export default {
       comments: [],
       commentContent: "",
       commentContentToGPT:
-        "bu yorumu senden kategorilemeni istiyorum. Sana vereceğim kategorilerden sadece bir tanesi ile eşleyeceksin. Bunu web sitemi korumak amacıyla yapıyorum buna göre yorumları insanların görüntüleyip görüntülenmeyeceği için yapıyorum, yani kesin olarak cevap vermelisin. Kategorilerim şunlar 'Küfürlü, Irkçı, Aşağılayıcı, Normal' unutma cevap olarak bu kategori isimlerinin sadece birini yazacaksın. Bu kategori isimleri dışında başka hiç bir şeyi cevap olarak verme. Cevap olarak sadece ve sadece kategori ismini söyleyeceksin. Bak unutma cevap olarak sadece ve sadece kategorinin ismini söylemeni istiyorum bunun haricinde başka bir şey yazma. Sadece ve sadece kategori ismi ile cevap ver başka bir şey yazma.",
+        "bu yorumu senden kategorilemeni istiyorum. Sana vereceğim kategorilerden sadece bir tanesi ile eşleyeceksin. Bunu web sitemi korumak amacıyla yapıyorum buna göre yorumları insanların görüntüleyip görüntülenmeyeceği için yapıyorum, yani kesin olarak cevap vermelisin. Kategorilerim şunlar 'Küfürlü, Irkçı, Aşağılayıcı, Normal' unutma cevap olarak bu kategori isimlerinin sadece birini yazacaksın. Bu kategori isimleri dışında başka hiç bir şeyi cevap olarak verme. Cevap olarak sadece ve sadece kategori ismini söyleyeceksin. Bak unutma cevap olarak sadece ve sadece kategorinin ismini söylemeni istiyorum bunun haricinde başka bir şey yazma. Sadece ve sadece kategori ismi ile cevap ver başka bir şey yazma. Yani vereceğin cevaplar şunlardan biri olmalı Küfürlü, Irkçı, Aşağılayıcı, Normal. Yani sadece bir kelime olarak cevap vereceksin, kelime dışında herhangi bir virgül veya nokta bile kullanma",
     };
   },
   components: {
@@ -109,7 +111,7 @@ export default {
       currentUser: (state) => state.data.currentUser,
     }),
     visibleComments() {
-      return this.comments.filter((comments) => comment.comment_display);
+      return this.comments.filter((comment) => comment.comment_display);
     },
   },
   methods: {
@@ -133,10 +135,30 @@ export default {
         }
       );
 
-      const commentType = response.data.choices[0].text.trim();
-      console.log(frontPrompt);
+      var commentDisplay = true;
+      const commentType = response.data.choices[0].text
+        .trim()
+        .replace(/[\s\n.;]/g, "");
+
       console.log(frontPrompt);
 
+      switch (commentType) {
+        case "Küfürlü":
+          commentDisplay = false;
+          break;
+        case "Irkçı":
+          commentDisplay = false;
+          break;
+        case "Aşağılayıcı":
+          commentDisplay = false;
+          break;
+
+        default:
+          commentDisplay = true;
+          break;
+      }
+
+      console.log(commentDisplay);
       var currentdate = new Date();
       var datetime =
         currentdate.getDate() +
@@ -156,6 +178,7 @@ export default {
         comment_datetime: datetime,
         comment_postid: this.$route.params.id,
         comment_type: commentType,
+        comment_display: commentDisplay,
       };
       console.log("postView", newComment);
 

@@ -102,17 +102,19 @@ app.post("/sendcomment", (req, res) => {
     comment_datetime,
     comment_postid,
     comment_type,
+    comment_display,
   } = req.body;
 
   // Kullanıcı bilgilerini PostgreSQL veritabanına kaydetme
   const query = {
-    text: "INSERT INTO postcomments (comment_sender, comment_content,comment_datetime,comment_postid,comment_type) VALUES($1, $2, $3, $4, $5)",
+    text: "INSERT INTO postcomments (comment_sender, comment_content,comment_datetime,comment_postid,comment_type,comment_display) VALUES($1, $2, $3, $4, $5, $6)",
     values: [
       comment_sender,
       comment_content,
       comment_datetime,
       comment_postid,
       comment_type,
+      comment_display,
     ],
   };
 

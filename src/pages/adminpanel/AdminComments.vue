@@ -36,6 +36,7 @@
               {{ comment.comment_datetime.substring(0, 10) }}
             </p>
             <p><strong>Blog Başlığı: </strong> {{ comment.post_title }}</p>
+            <p><strong>Comment Type: </strong> {{ comment.comment_type }}</p>
             <div class="blog-link">
               <span class="arrow">➤ .</span>
               <button @click="getBlog(comment.comment_postid)">
