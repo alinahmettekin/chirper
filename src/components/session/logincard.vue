@@ -1,27 +1,67 @@
 <template>
-  <div>
-    <nav class="navbar">
-      <ul>
-        <li><a href="/homepage">Anasayfa</a></li>
-        <li><a href="/login">Giriş Yap</a></li>
-        <li><a href="/signUp">Kayıt Ol</a></li>
-        <li><a href="/explore">Keşfet</a></li>
-        <li><a href="#">Hakkımızda</a></li>
-      </ul>
-    </nav>
+  <div class="form-container">
+    <div class="site-info">
+      <p class="site-name">Chirper</p>
+      <p class="site-slogan">blog blog yaşamak</p>
+    </div>
+    <div class="form-control">
+      <p class="title">Giriş Yap</p>
+      <div class="input-field">
+        <input
+          class="input"
+          type="name"
+          name="email"
+          id="email"
+          placeholder="E-Mail"
+          v-model="email"
+        />
+        <label class="label" for="input">E-posta adresinizi girin Card</label>
+      </div>
+      <div class="input-field">
+        <input
+          class="input"
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Password"
+          v-model="password"
+        />
+        <label class="label" for="input">Şifrenizi girin</label>
+      </div>
+      <a class="forgot-password">Şifrenizi mi unuttunuz?</a>
+      <a @click="signUp()" class="signup">Hesabınız yok mu? Kayıt olun</a>
+      <button @click="login()" class="submit-btn">Giriş Yap</button>
+    </div>
   </div>
-  <logincard />
 </template>
 <script>
-import logincard from "../../components/session/logincard.vue";
+import router from "../../router";
+import { mapState } from "vuex";
 
 export default {
-  components: {
-    logincard,
+  data() {
+    return { currentUser: null };
+  },
+  methods: {
+    login() {
+      const authentication = {
+        currentUserMail: this.email,
+        currentUserPassword: this.password,
+      };
+
+      this.$store.commit("loginUser", authentication);
+    },
+    signUp() {
+      router.forward;
+    },
+  },
+  computed: {
+    ...mapState({
+      currentUser: (state) => state.data.currentUser,
+    }),
   },
 };
 </script>
-
 <style scoped>
 .navbar {
   background-color: #f8f9fa;

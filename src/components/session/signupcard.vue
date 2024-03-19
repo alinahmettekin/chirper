@@ -1,27 +1,87 @@
 <template>
-  <div>
-    <nav class="navbar">
-      <ul>
-        <li><a href="/homepage">Anasayfa</a></li>
-        <li><a href="/login">Giriş Yap</a></li>
-        <li><a href="/signUp">Kayıt Ol</a></li>
-        <li><a href="/explore">Keşfet</a></li>
-        <li><a href="#">Hakkımızda</a></li>
-      </ul>
-    </nav>
+  <div class="form-container">
+    <div class="site-info">
+      <p class="site-name">Chirper</p>
+      <p class="site-slogan">blog blog yaşamak</p>
+    </div>
+    <div class="form-control">
+      <p class="title">Kayıt Ol</p>
+      <div class="input-field">
+        <input
+          class="input"
+          type="email"
+          name="email"
+          id="email"
+          placeholder="E-Mail"
+          v-model="email"
+        />
+        <label class="label" for="input">E-posta adresinizi girin Card</label>
+      </div>
+      <div class="input-field">
+        <input
+          class="input"
+          type="username"
+          name="username"
+          id="username"
+          placeholder="Kullanıcı Adı"
+          v-model="username"
+        />
+        <label class="label" for="input">Kullanıcı adı girin</label>
+      </div>
+      <div class="input-field">
+        <input
+          class="input"
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Password"
+          v-model="password"
+        />
+        <label class="label" for="input">Şifrenizi girin</label>
+      </div>
+      <a class="forgot-password">Şifrenizi mi unuttunuz?</a>
+      <a @click="pushLogin" class="signup">Hesabınız var mı? Giriş Yapın</a>
+      <button @click="signUpToDatabase" class="submit-btn">Kayıt Ol</button>
+    </div>
   </div>
-  <logincard />
 </template>
 <script>
-import logincard from "../../components/session/logincard.vue";
+import router from "../../router";
+import axios from "axios";
 
 export default {
-  components: {
-    logincard,
+  data() {
+    return { currentUser: null };
+  },
+  methods: {
+    async signUpToDatabase() {
+      const reqisterUser = {
+        username: this.username,
+        email: this.email,
+        password: this.password,
+      };
+      console.log(reqisterUser);
+      try {
+        const response = await axios.post(
+          "http://localhost:3000/register",
+          reqisterUser
+        );
+        const authentication = {
+          currentUserMail: this.email,
+          currentUserPassword: this.password,
+        };
+        this.$store.commit("loginUser", authentication);
+      } catch (error) {
+        console.error("İstek sırasında bir hata oluştu:", error);
+        alert("Kullanıcı kaydedilirken bir hata oluştu.");
+      }
+    },
+    pushLogin() {
+      router.push("/login");
+    },
   },
 };
 </script>
-
 <style scoped>
 .navbar {
   background-color: #f8f9fa;
@@ -83,7 +143,6 @@ export default {
 }
 
 .form-control {
-  margin-top: 200px;
   margin-top: 20px;
   background-color: #ffffff;
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
@@ -163,4 +222,4 @@ export default {
   cursor: pointer;
 }
 </style>
-./LogIn.vue../../router
+../../router
