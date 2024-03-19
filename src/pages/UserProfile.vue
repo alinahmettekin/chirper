@@ -12,7 +12,7 @@
     <div class="blog-posts">
       <h3>Paylaştığı Blog Yazıları</h3>
       <ul class="post-list">
-        <li v-for="post in posts" :key="post_id" class="post-item">
+        <li v-for="post in posts" class="post-item">
           <h4>{{ post.post_title }}</h4>
           <p>{{ truncate(post.post_content) }}</p>
           <router-link
@@ -27,10 +27,9 @@
 </template>
 
 <script>
-import sidebar from "../components/Sidebar.vue";
+import sidebar from "../components/sidebar/sidebar.vue";
 import axios from "axios";
 import { mapState } from "vuex";
-import Sidebar from "../components/Sidebar.vue";
 export default {
   async created() {
     const string = this.$route.params.username;
@@ -43,25 +42,6 @@ export default {
       user: {},
       posts: {},
       avatar: "https://via.placeholder.com/150",
-      fuser: {
-        name: "John Doe",
-        avatar: "https://via.placeholder.com/150",
-        bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et urna auctor, laoreet nisi sed, sagittis eros. Integer lacinia semper velit, ac tincidunt enim imperdiet non.",
-      },
-      blogPosts: [
-        {
-          id: 1,
-          title: "First Blog Post",
-          content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        },
-        {
-          id: 2,
-          title: "Second Blog Post",
-          content:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et urna auctor, laoreet nisi sed, sagittis eros. Integer lacinia semper velit, ac tincidunt enim imperdiet non.",
-        },
-        // Diğer blog yazıları buraya eklenebilir
-      ],
     };
   },
   methods: {
@@ -194,3 +174,4 @@ body {
   text-align: left; /* Yazıyı sola yasla */
 }
 </style>
+../components/sidebar.vue../components/sidebar.vue../components/sidebar/sidebar.vue../components/sidebar/sidebar.vue

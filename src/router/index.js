@@ -1,87 +1,47 @@
-import admin from "../pages/admin.vue";
-import explore from "../pages/explore.vue";
-import main from "../pages/main.vue";
-import postDetail from "../pages/postDetail.vue";
-import process from "../pages/process.vue";
-import postView from "../pages/postView.vue";
+import explore from "../pages/Explore.vue";
+import main from "../pages/Homepage.vue";
+import postdetail from "../pages/PostDetail.vue";
+import login from "../pages/session/LogIn.vue";
+import signUp from "../pages/session/SignUp.vue";
 import dashboard from "../pages/adminpanel/Dashboard.vue";
-import commentspage from "../pages/adminpanel/CommentsPage.vue";
-import postspage from "../pages/adminpanel/PostsPage.vue";
-import userspage from "../pages/adminpanel/UsersPage.vue";
-
-import admindashboard from "../pages/adminpanel/AdminDashboard.vue";
-import adminusers from "../pages/adminpanel/AdminUsers.vue";
-import admincomments from "../pages/adminpanel/AdminComments.vue";
-import adminblogs from "../pages/adminpanel/AdminBlogs.vue";
+import users from "../pages/adminpanel/Users.vue";
+import comments from "../pages/adminpanel/Comments.vue";
+import blogs from "../pages/adminpanel/Blogs.vue";
 import testing from "../pages/testing.vue";
 
-import profilepage from "../pages/profile.vue";
+import profilepage from "../pages/UserProfile.vue";
 
 import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
   {
-    path: "/",
+    path: "/homepage",
     name: "main",
     component: main,
   },
   {
-    path: "/signIn",
-    name: "signIn",
-    component: process,
+    path: "/signUp",
+    name: "signUp",
+    component: signUp,
   },
   {
     path: "/login",
-    name: "login",
-    component: process,
+    name: "logIn",
+    component: login,
   },
   {
     path: "/explore",
     name: "explore",
     component: explore,
   },
-  {
-    path: "/admin",
-    name: "admin",
-    component: admin,
-  },
-  // {
-  //   path: "/postView",
-  //   name: "postView",
-  //   component: postView,
-  // },
-  {
-    name: "postView",
-    path: "/postView/:id",
-    component: postView,
-    props: (route) => ({ id: route.params.id }),
-  },
+
   {
     path: "/postDetail/:id", // Burada :id dinamik bir parametreyi temsil eder
     name: "postDetail",
-    component: postDetail,
+    component: postdetail,
     props: true, // Parametreleri props olarak iletmek için props: true kullanılır
   },
-  {
-    path: "/dashboard",
-    name: "dashboard",
-    component: dashboard,
-  },
-  {
-    path: "/admincomments",
-    name: "admincomments",
-    component: commentspage,
-  },
-  {
-    path: "/adminposts",
-    name: "adminposts",
-    component: postspage,
-  },
-  {
-    path: "/adminusers",
-    name: "adminusers",
-    component: userspage,
-  },
+
   {
     path: "/profile/:username",
     name: "profilepage",
@@ -92,23 +52,23 @@ const routes = [
   {
     path: "/admin/dashboard",
     name: "admindashboard",
-    component: admindashboard,
+    component: dashboard,
   },
 
   {
     path: "/admin/comments",
     name: "admincomments",
-    component: admincomments,
+    component: comments,
   },
   {
     path: "/admin/blogs",
     name: "adminblogs",
-    component: adminblogs,
+    component: blogs,
   },
   {
     path: "/admin/users",
     name: "adminusers",
-    component: adminusers,
+    component: users,
   },
   {
     path: "/testing",

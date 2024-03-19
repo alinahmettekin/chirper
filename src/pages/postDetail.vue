@@ -72,6 +72,12 @@
               <button @click="sendComment">Paylaş</button>
             </div>
           </div>
+          <div v-if="checkCard" id="popupOverlay">
+            <div id="popupCard">
+              <p>Yorumunuz incelenmek üzere alınmıştır.</p>
+              <button @click="checkCardDispose">Kapat</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -79,8 +85,7 @@
 </template>
 
 <script>
-import sidebar from "../components/Sidebar.vue";
-//import header from "../components/Header.vue";
+import sidebar from "../components/sidebar/sidebar.vue";
 import axios from "axios";
 import { mapState } from "vuex";
 import { API_KEY } from "../services/api_key.js";
@@ -95,6 +100,7 @@ export default {
   },
   data() {
     return {
+      checkCard: false,
       photo: "https://via.placeholder.com/60",
       post: {},
       comments: [],
@@ -115,6 +121,10 @@ export default {
     },
   },
   methods: {
+    checkCardDispose() {
+      this.checkCard = false;
+      location.reload();
+    },
     async sendComment(e) {
       var frontPrompt = '"'.concat(
         this.commentContent,
@@ -190,7 +200,8 @@ export default {
           );
 
           if (response.status === 201) {
-            alert("comment başarıyla kaydedildi.");
+            //alert("comment başarıyla kaydedildi.");
+            this.checkCard = true;
           } else {
             alert("comment kaydedilirken bir hata oluştu.");
           }
@@ -232,6 +243,29 @@ export default {
 
 <style scoped>
 /* Styles for blog list */
+
+#popupOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Arkaplanı biraz karartmak için */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#popupCard {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#popupCard p {
+  margin-bottom: 10px;
+}
 .blog-list {
   max-width: 1000px;
   margin-left: 150px;
@@ -401,3 +435,4 @@ export default {
   background-color: #0056b3;
 }
 </style>
+./PostDetail.vue/index.js../components/sidebar.vue../components/sidebar/sidebar.vue/index.js

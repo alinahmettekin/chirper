@@ -3,9 +3,8 @@
     <adminsidebar />
     <nav class="navbar">
       <ul>
-        <li><a href="/">Anasayfa</a></li>
-        <li><a href="/admin">Admin Paneli</a></li>
-        <li><a href="/blog">Blog</a></li>
+        <li><a href="/homepage">Anasayfa</a></li>
+        <li><a href="/explore">Blog</a></li>
         <li><a href="/contact">İletişim</a></li>
       </ul>
     </nav>
@@ -46,7 +45,7 @@
 </template>
 
 <script>
-import adminsidebar from "../../components/AdminSidebar.vue";
+import adminsidebar from "../../components/sidebar/adminsidebar.vue";
 
 import { mapState } from "vuex";
 
@@ -192,3 +191,4 @@ button:hover {
   background-color: #ddd;
 }
 </style>
+../../components/adminsidebar.vue../../components/sidebar/adminsidebar.vue

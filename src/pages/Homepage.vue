@@ -3,11 +3,11 @@
     <!-- Üst Kısım: Rota Yönlendirmeleri -->
     <nav class="navbar">
       <ul>
-        <li><a href="/">Anasayfa</a></li>
+        <li><a href="/homepage">Anasayfa</a></li>
         <li><a href="/login">Giriş Yap</a></li>
-        <li><a href="/signIn">Kayıt Ol</a></li>
+        <li><a href="/signUp">Kayıt Ol</a></li>
         <li><a href="/explore">Keşfet</a></li>
-        <li><a href="#">Hakkımızda</a></li>
+        <li><a href="/about">Hakkımızda</a></li>
       </ul>
     </nav>
 
@@ -16,8 +16,13 @@
       <div class="intro-content">
         <h1>Chirper</h1>
         <p>Blog Blog Yaşamak</p>
+        <p>Ahmet Furkan Ceyhan - Ahmet Tekin</p>
+        <p>Süleyman Demirel Üniversitesi</p>
       </div>
     </div>
+  </div>
+  <div class="footer">
+    <FooterComponent />
   </div>
 </template>
 <script>
@@ -105,6 +110,10 @@ body {
 
 .btn:hover {
   background-color: #0056b3;
+}
+
+.footer {
+  margin-top: 500px;
 }
 </style>
 `

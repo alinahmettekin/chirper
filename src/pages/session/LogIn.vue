@@ -2,15 +2,15 @@
   <div>
     <nav class="navbar">
       <ul>
-        <li><a href="/">Anasayfa</a></li>
+        <li><a href="/homepage">Anasayfa</a></li>
         <li><a href="/login">Giriş Yap</a></li>
-        <li><a href="/signIn">Kayıt Ol</a></li>
+        <li><a href="/signUp">Kayıt Ol</a></li>
         <li><a href="/explore">Keşfet</a></li>
         <li><a href="#">Hakkımızda</a></li>
       </ul>
     </nav>
   </div>
-  <div class="form-container" v-if="this.$route.path == `/login`">
+  <div class="form-container">
     <div class="site-info">
       <p class="site-name">Chirper</p>
       <p class="site-slogan">blog blog yaşamak</p>
@@ -40,13 +40,13 @@
         <label class="label" for="input">Şifrenizi girin</label>
       </div>
       <a class="forgot-password">Şifrenizi mi unuttunuz?</a>
-      <a @click="signIn" class="signup">Hesabınız yok mu? Kayıt olun</a>
+      <a @click="signUp()" class="signup">Hesabınız yok mu? Kayıt olun</a>
       <button @click="login" class="submit-btn">Giriş Yap</button>
     </div>
   </div>
 </template>
 <script>
-import router from "../router";
+import router from "../../router";
 import { mapState } from "vuex";
 
 export default {
@@ -62,8 +62,8 @@ export default {
 
       this.$store.commit("loginUser", authentication);
     },
-    signIn() {
-      router.push("/signIn");
+    signUp() {
+      router.push("/signUp");
     },
   },
   computed: {
@@ -215,3 +215,4 @@ export default {
   cursor: pointer;
 }
 </style>
+./LogIn.vue../../router

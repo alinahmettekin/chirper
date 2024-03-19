@@ -2,15 +2,15 @@
   <div>
     <nav class="navbar">
       <ul>
-        <li><a href="/">Anasayfa</a></li>
+        <li><a href="/homepage">Anasayfa</a></li>
         <li><a href="/login">Giriş Yap</a></li>
-        <li><a href="/signIn">Kayıt Ol</a></li>
+        <li><a href="/signUp">Kayıt Ol</a></li>
         <li><a href="/explore">Keşfet</a></li>
         <li><a href="#">Hakkımızda</a></li>
       </ul>
     </nav>
   </div>
-  <div class="form-container" v-if="this.$route.path == `/signIn`">
+  <div class="form-container">
     <div class="site-info">
       <p class="site-name">Chirper</p>
       <p class="site-slogan">blog blog yaşamak</p>
@@ -57,7 +57,7 @@
   </div>
 </template>
 <script>
-import router from "../router";
+import router from "../../router";
 import axios from "axios";
 
 export default {
@@ -234,3 +234,4 @@ export default {
   cursor: pointer;
 }
 </style>
+../../router

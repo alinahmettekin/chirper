@@ -77,12 +77,12 @@ app.patch("/update-comment-display/:commentId", async (req, res) => {
 });
 
 app.post("/sendpost", (req, res) => {
-  const { post_sender, post_content, post_datetime } = req.body;
+  const { post_sender, post_content, post_datetime, post_title } = req.body;
 
   // Kullanıcı bilgilerini PostgreSQL veritabanına kaydetme
   const query = {
-    text: "INSERT INTO posts (post_sender, post_content,post_datetime) VALUES($1, $2, $3)",
-    values: [post_sender, post_content, post_datetime],
+    text: "INSERT INTO posts (post_sender, post_content,post_datetime, post_title) VALUES($1, $2, $3, $4)",
+    values: [post_sender, post_content, post_datetime, post_title],
   };
 
   db.query(query)

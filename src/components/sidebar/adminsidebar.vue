@@ -1,6 +1,6 @@
 <template>
   <div class="sidebar">
-    <h2 @click="homePage">Chirper</h2>
+    <h2 @click="homePage()">Chirper</h2>
     <h5>Admin Panel</h5>
     <nav>
       <ul>
@@ -22,7 +22,7 @@
 <script>
 import axios from "axios";
 import { mapState } from "vuex";
-import router from "../router/index";
+import router from "../../router/index";
 
 export default {
   data() {
@@ -57,11 +57,11 @@ export default {
     login() {
       router.push("/login");
     },
-    signIn() {
-      router.push("/signIn");
+    signUp() {
+      router.push("/signUp");
     },
     homePage() {
-      router.push("/");
+      router.push("/homepage");
     },
 
     getRenderItem() {
@@ -212,3 +212,4 @@ export default {
   color: red;
 }
 </style>
+./adminsidebar.vue../../router/index

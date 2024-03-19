@@ -1,11 +1,10 @@
 <template>
   <div v-show="this.currentUser.isAdmin === true">
-    <AdminSidebar />
+    <adminsidebar />
     <nav class="navbar">
       <ul>
-        <li><a href="/">Anasayfa</a></li>
-        <li><a href="/admin">Admin Paneli</a></li>
-        <li><a href="/blog">Blog</a></li>
+        <li><a href="/homepage">Anasayfa</a></li>
+        <li><a href="/explore">Keşfet</a></li>
         <li><a href="/contact">İletişim</a></li>
       </ul>
     </nav>
@@ -15,10 +14,8 @@
       <div class="blog-cards">
         <div
           v-for="blog in this.posts"
-          :key="post_id"
           class="blog-card"
           :class="{ blocked: blog.post_display }"
-          :id="blog.post_id"
         >
           <h3>{{ blog.post_title }}</h3>
           <p>{{ blog.post_content.substring(0, 20) }}...</p>
@@ -43,7 +40,7 @@
 </template>
 
 <script>
-import AdminSidebar from "../../components/AdminSidebar.vue";
+import adminsidebar from "../../components/sidebar/adminsidebar.vue";
 import { mapState } from "vuex";
 
 export default {
@@ -56,7 +53,7 @@ export default {
       blockedBlogs: (state) => state.data.blockedBlogs,
     }),
   },
-  components: { AdminSidebar },
+  components: { adminsidebar },
   data() {
     return {};
   },
@@ -121,3 +118,4 @@ export default {
   text-decoration: underline;
 }
 </style>
+../../components/adminsidebar.vue../../components/sidebar/adminsidebar.vue

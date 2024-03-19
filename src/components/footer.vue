@@ -1,73 +1,74 @@
 <template>
-  <div class="footer">
-    <div class="footer-content">
-      <div class="footer-section">
-        <h3>About Us</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-      </div>
-      <div class="footer-section">
-        <h3>Useful Links</h3>
-        <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Services</a></li>
-          <li><a href="#">Contact</a></li>
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <p>&copy; {{ currentYear }} Chirper. Tüm hakları saklıdır.</p>
+        <ul class="footer-links">
+          <li v-for="(link, index) in footerLinks" :key="index">
+            <a :href="link.url">{{ link.text }}</a>
+          </li>
         </ul>
       </div>
-      <div class="footer-section">
-        <h3>Contact Us</h3>
-        <p>Email: info@example.com</p>
-        <p>Phone: +1234567890</p>
-      </div>
     </div>
-    <div class="footer-bottom">
-      <p>&copy; 2023 Your Website. All Rights Reserved.</p>
-    </div>
-  </div>
+  </footer>
 </template>
 
+<script>
+export default {
+  name: "Footer",
+  data() {
+    return {
+      currentYear: new Date().getFullYear(),
+      footerLinks: [
+        { text: "Hakkımızda", url: "#" },
+        { text: "İletişim", url: "#" },
+        { text: "KVKK", url: "#" },
+      ],
+    };
+  },
+};
+</script>
+
 <style>
-.footer {
+footer {
   background-color: #333;
-  color: #fff;
-  text-align: center;
+  color: white;
   padding: 20px 0;
-  width: 100%;
-  position: absolute;
-  bottom: 0;
+  text-align: center;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .footer-content {
   display: flex;
-  justify-content: space-around;
-  align-items: flex-start;
-  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.footer-section {
-  flex: 1;
-  padding: 0 20px;
-}
-
-.footer-section h3 {
-  margin-bottom: 10px;
-}
-
-.footer-section ul {
-  list-style-type: none;
+.footer-links {
+  list-style: none;
   padding: 0;
+  margin: 0;
 }
 
-.footer-section ul li {
-  margin-bottom: 5px;
+.footer-links li {
+  display: inline-block;
+  margin-right: 20px;
 }
 
-.footer-section a {
-  color: #fff;
+.footer-links li:last-child {
+  margin-right: 0;
+}
+
+.footer-links a {
+  color: white;
   text-decoration: none;
 }
 
-.footer-bottom {
-  margin-top: 20px;
+.footer-links a:hover {
+  text-decoration: underline;
 }
 </style>

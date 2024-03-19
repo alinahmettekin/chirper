@@ -1,10 +1,11 @@
 <template>
   <div v-show="this.currentUser.isAdmin === true">
     <div>
-      <AdminSidebar />
+      <adminsidebar />
       <nav class="navbar">
         <ul>
-          <li><a href="/">Anasayfa</a></li>
+          <li><a href="/homepage">Anasayfa</a></li>
+          <li><a href="/explore">Keşfet</a></li>
           <li><a href="/admin/dashboard">Admin Paneli</a></li>
           <li><a href="/blogsadmin">Blog</a></li>
           <li><a href="/contact">İletişim</a></li>
@@ -51,7 +52,7 @@
 </template>
 
 <script>
-import AdminSidebar from "../../components/AdminSidebar.vue";
+import adminsidebar from "../../components/sidebar/adminsidebar.vue";
 import { mapState } from "vuex";
 
 export default {
@@ -72,7 +73,7 @@ export default {
       return this.comments.length;
     },
   },
-  components: { AdminSidebar },
+  components: { adminsidebar },
   data() {
     return {};
   },
@@ -91,7 +92,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 /* Stil Kodları */
 .comment-card {
   border: 1px solid #ccc;
@@ -120,3 +121,4 @@ export default {
   margin-right: 20px;
 }
 </style>
+../../components/adminsidebar.vue../../components/sidebar/adminsidebar.vue
