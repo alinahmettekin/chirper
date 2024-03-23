@@ -164,6 +164,23 @@ app.post("/updatecomment", (req, res) => {
     });
 });
 
+app.put("/api/comments/updatecomment/:commentID", async (req, res) => {
+  const commentID = req.params.commentID;
+  const newType = req.body.comment_type;
+
+  try {
+    db.query(
+      "UPDATE postcomments SET comment_type = $1 WHERE comment_id = $2",
+      [newType, commentID]
+    );
+
+    res.send("Comment type updated successfully");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 app.post("/login", (req, res) => {
   const { user_mail, user_password } = req.body;
   console.log("user_mail: ", user_mail, "user_password: ", user_password);

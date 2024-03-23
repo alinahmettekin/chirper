@@ -9,10 +9,12 @@
           <div class="blog-header">
             <img :src="photo" alt="User Photo" class="user-photo" />
             <div class="user-info">
-              <p :id="post.post_sender_name" @click="getLink" class="user-name">
-                Yazar: {{ "   " + this.post.user_name }}
-              </p>
-              <p class="blog-date">{{ post.post_datetime.slice(0, 10) }}</p>
+              <router-link
+                :to="`/profile/${this.post.user_name}`"
+                class="user-name"
+                >{{ this.post.user_name }}</router-link
+              >
+              <p class="blog-date">{{ dateTime(this.post.post_datetime) }}</p>
             </div>
           </div>
 
@@ -90,8 +92,7 @@ import axios from "axios";
 import { mapState } from "vuex";
 import { API_KEY } from "../services/api_key.js";
 
-const API_URL =
-  "https://api.openai.com/v1/engines/gpt-3.5-turbo-instruct/completions";
+const API_URL = "https://api.openai.com/v1/chat/completions";
 export default {
   async created() {
     const postId = this.$route.params.id;
@@ -104,6 +105,7 @@ export default {
       photo: "https://via.placeholder.com/60",
       post: {},
       comments: [],
+
       commentContent: "",
       commentContentToGPT:
         "bu yorumu senden kategorilemeni istiyorum. Sana vereceğim kategorilerden sadece bir tanesi ile eşleyeceksin. Bunu web sitemi korumak amacıyla yapıyorum buna göre yorumları insanların görüntüleyip görüntülenmeyeceği için yapıyorum, yani kesin olarak cevap vermelisin. Kategorilerim şunlar 'Küfürlü, Irkçı, Aşağılayıcı, Normal' unutma cevap olarak bu kategori isimlerinin sadece birini yazacaksın. Bu kategori isimleri dışında başka hiç bir şeyi cevap olarak verme. Cevap olarak sadece ve sadece kategori ismini söyleyeceksin. Bak unutma cevap olarak sadece ve sadece kategorinin ismini söylemeni istiyorum bunun haricinde başka bir şey yazma. Sadece ve sadece kategori ismi ile cevap ver başka bir şey yazma. Yani vereceğin cevaplar şunlardan biri olmalı Küfürlü, Irkçı, Aşağılayıcı, Normal. Yani sadece bir kelime olarak cevap vereceksin, kelime dışında herhangi bir virgül veya nokta bile kullanma",
@@ -121,6 +123,9 @@ export default {
     },
   },
   methods: {
+    dateTime(datetime) {
+      return datetime?.slice(0, 10);
+    },
     checkCardDispose() {
       this.checkCard = false;
       location.reload();
@@ -131,11 +136,18 @@ export default {
         '" ',
         this.commentContentToGPT
       );
+      console.log(typeof frontPrompt);
       const response = await axios.post(
         API_URL,
         {
-          prompt: frontPrompt,
           max_tokens: 2048,
+          model: "gpt-4",
+          messages: [
+            {
+              role: "user",
+              content: frontPrompt,
+            },
+          ],
         },
         {
           headers: {
@@ -146,11 +158,12 @@ export default {
       );
 
       var commentDisplay = true;
-      const commentType = response.data.choices[0].text
+      const commentType = response.data.choices[0].message.content
         .trim()
         .replace(/[\s\n.;]/g, "");
 
       console.log(frontPrompt);
+      console.log(commentType);
 
       switch (commentType) {
         case "Küfürlü":
@@ -213,7 +226,7 @@ export default {
     },
     formatContent(content) {
       //içerik formatlaması
-      return content.replace(/\n/g, "<br>"); // yeni satır karakterlerini <br> etiketleriyle değiştirir
+      return content?.replace(/\n/g, "<br>"); // yeni satır karakterlerini <br> etiketleriyle değiştirir
     },
     async getPostAsync(postId) {
       try {

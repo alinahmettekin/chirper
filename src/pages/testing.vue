@@ -33,9 +33,9 @@
 
 <script>
 import axios from "axios";
+import { API_KEY } from "../services/api_key.js";
 
-const API_URL =
-  "https://api.openai.com/v1/engines/gpt-3.5-turbo-instruct/completions";
+const API_URL = "https://api.openai.com/v1/chat/completions";
 
 export default {
   data() {
@@ -57,23 +57,29 @@ export default {
       const response = await axios.post(
         API_URL,
         {
-          prompt: this.inputText,
           max_tokens: 2048,
+          model: "gpt-3.5-turbo",
+          messages: [
+            {
+              role: "user",
+              content: this.inputText,
+            },
+          ],
         },
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization:
-              "Bearer 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",
+            Authorization: API_KEY,
           },
         }
       );
       const chatGPTResponse = {
         type: "chatgpt",
-        text: response.data.choices[0].text.trim(),
+        text: response.data.choices[0].message.content,
       };
       this.messages.push(chatGPTResponse);
       this.inputText = "";
+      console.log(response.data.usage);
     },
   },
 };

@@ -1,5 +1,5 @@
 import explore from "../pages/Explore.vue";
-import main from "../pages/Homepage.vue";
+import homepage from "../pages/Homepage.vue";
 import postdetail from "../pages/PostDetail.vue";
 import login from "../pages/session/LogIn.vue";
 import signUp from "../pages/session/SignUp.vue";
@@ -8,7 +8,6 @@ import users from "../pages/adminpanel/Users.vue";
 import comments from "../pages/adminpanel/Comments.vue";
 import blogs from "../pages/adminpanel/Blogs.vue";
 import testing from "../pages/testing.vue";
-
 import profilepage from "../pages/UserProfile.vue";
 
 import { createRouter, createWebHistory } from "vue-router";
@@ -16,9 +15,10 @@ import { createRouter, createWebHistory } from "vue-router";
 const routes = [
   {
     path: "/homepage",
-    name: "main",
-    component: main,
+    name: "homepage",
+    component: homepage,
   },
+
   {
     path: "/signUp",
     name: "signUp",
